@@ -127,7 +127,7 @@
             display: none; /* Caché par défaut */
             font-size: 0.95rem;
             line-height: 1.5;
-            color: #e2e8f0;
+            color: #202020;
         }
 
         /* Animation simple */
@@ -147,3 +147,12 @@
             display: none;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- 6. FOOTER --- */
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
