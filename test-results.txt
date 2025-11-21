@@ -1,0 +1,404 @@
+﻿
+> projet-ia-for-ia@1.0.0 test
+> jest
+
+  console.error
+    Erreur lors de l'appel DeepSeek: Error: Erreur API: 401
+        at callDeepSeek (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\js\app.test.js:108:27)
+        at Object.<anonymous> (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\js\app.test.js:159:28)
+
+    [0m [90m 112 |[39m                 [36mreturn[39m data[33m.[39mchoices[[35m0[39m][33m.[39mmessage[33m.[39mcontent[33m;[39m
+     [90m 113 |[39m             } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 114 |[39m                 console[33m.[39merror([32m"Erreur lors de l'appel DeepSeek:"[39m[33m,[39m error)[33m;[39m
+     [90m     |[39m                         [31m[1m^[22m[39m
+     [90m 115 |[39m                 [36mreturn[39m [36mnull[39m[33m;[39m
+     [90m 116 |[39m             }
+     [90m 117 |[39m         }[33m;[39m[0m
+
+      at error (js/app.test.js:114:25)
+      at Object.<anonymous> (js/app.test.js:159:28)
+
+  console.error
+    Erreur lors de l'appel DeepSeek: Error: Network error
+        at Object.<anonymous> (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\js\app.test.js:165:48)
+        at Promise.then.completed (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\utils.js:298:28)
+        at new Promise (<anonymous>)
+        at callAsyncCircusFn (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\utils.js:231:10)
+        at _callCircusTest (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\run.js:316:40)
+        at _runTest (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\run.js:252:3)
+        at _runTestsForDescribeBlock (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\run.js:126:9)
+        at _runTestsForDescribeBlock (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\run.js:121:9)
+        at _runTestsForDescribeBlock (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\run.js:121:9)
+        at run (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\run.js:71:3)
+        at runAndTransformResultsToJestFormat (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+        at jestAdapter (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+        at runTestInternal (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-runner\build\runTest.js:367:16)
+        at runTest (C:\Users\giuse\OneDrive\Desktop\projet-ia-for-ia\node_modules\jest-runner\build\runTest.js:444:34)
+
+    [0m [90m 112 |[39m                 [36mreturn[39m data[33m.[39mchoices[[35m0[39m][33m.[39mmessage[33m.[39mcontent[33m;[39m
+     [90m 113 |[39m             } [36mcatch[39m (error) {
+    [31m[1m>[22m[39m[90m 114 |[39m                 console[33m.[39merror([32m"Erreur lors de l'appel DeepSeek:"[39m[33m,[39m error)[33m;[39m
+     [90m     |[39m                         [31m[1m^[22m[39m
+     [90m 115 |[39m                 [36mreturn[39m [36mnull[39m[33m;[39m
+     [90m 116 |[39m             }
+     [90m 117 |[39m         }[33m;[39m[0m
+
+      at error (js/app.test.js:114:25)
+      at Object.<anonymous> (js/app.test.js:168:28)
+
+node.exe : 
+(node:20088) 
+[DEP0040] 
+DeprecationWarning: 
+The `punycode` 
+module is 
+deprecated. Please 
+use a userland 
+alternative instead.
+Au caractère 
+C:\Program Files\node
+js\npm.ps1:29 : 3
++   & $NODE_EXE 
+$NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: ((node:2   
+ 0088) [D...nativ    
+e instead.:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+(Use `node 
+--trace-deprecation 
+...` to show where 
+the warning was 
+created)
+FAIL js/app.test.js
+  Application 
+Podcast IA
+    Initialisation 
+du DOM
+      ÔêÜ Les 
+├®l├®ments DOM 
+essentiels existent 
+(22 ms)
+      ├ù Le bouton a 
+le texte initial 
+correct (7 ms)
+      ÔêÜ Le loader 
+est cach├® par 
+d├®faut (3 ms)
+      ÔêÜ La zone de 
+r├®ponse est cach├®e 
+par d├®faut (2 ms)
+    Validation des 
+entr├®es
+      ÔêÜ Le champ 
+vide ne devrait pas 
+lancer le podcast (2 
+ms)
+      ÔêÜ Le champ 
+avec des espaces 
+seulement ne devrait 
+pas ├¬tre valide (2 
+ms)
+      ÔêÜ Le champ 
+avec du texte valide 
+devrait passer la 
+validation (2 ms)
+    Fonction 
+callDeepSeek 
+(Simulation)
+      ÔêÜ Devrait 
+appeler l'API avec 
+les bons param├¿tres 
+(4 ms)
+      ÔêÜ Devrait 
+g├®rer les erreurs 
+HTTP (30 ms)
+      ÔêÜ Devrait 
+g├®rer les erreurs 
+r├®seau (17 ms)
+      ÔêÜ Devrait 
+envoyer le bon 
+format de donn├®es 
+(5 ms)
+    Fonction 
+appendMessageToUI
+      ├ù Devrait 
+cr├®er un message 
+pour l'h├┤te avec le 
+bon style (9 ms)
+      ├ù Devrait 
+cr├®er un message 
+pour l'invit├® avec 
+le bon style (3 ms)
+      ÔêÜ Devrait 
+ajouter plusieurs 
+messages dans 
+l'ordre (3 ms)
+      ÔêÜ Devrait 
+avoir les bonnes 
+propri├®t├®s de 
+style communes (2 ms)
+    Logique du 
+d├®compte des tours
+      ÔêÜ Le premier 
+tour devrait ├¬tre 
+l'h├┤te (turnCount 
+impair) (1 ms)
+      ÔêÜ Le 
+deuxi├¿me tour 
+devrait ├¬tre 
+l'invit├® (turnCount 
+pair) (1 ms)
+      ÔêÜ Le 
+troisi├¿me tour 
+devrait ├¬tre 
+l'h├┤te ├á nouveau 
+(2 ms)
+    Fonction 
+stopPodcast
+      ÔêÜ Devrait 
+arr├¬ter le podcast 
+et r├®initialiser 
+l'├®tat (2 ms)
+    Gestion du 
+prompt syst├¿me
+      ÔêÜ Devrait 
+cr├®er un prompt 
+syst├¿me bien 
+format├® (2 ms)
+      ÔêÜ 
+L'historique devrait 
+commencer avec le 
+message syst├¿me (2 
+ms)
+    Raccourci 
+clavier Ctrl+Enter
+      ÔêÜ Devrait 
+d├®tecter Ctrl+Enter 
+correctement (2 ms)
+      ÔêÜ Ne devrait 
+pas d├®tecter Enter 
+seul (1 ms)
+      ÔêÜ Ne devrait 
+pas d├®tecter Ctrl 
+seul (1 ms)
+    Validation du 
+style de bordure 
+d'erreur
+      ÔêÜ Le champ 
+devrait pouvoir 
+changer de couleur 
+de bordure (2 ms)
+      ÔêÜ Le champ 
+devrait pouvoir 
+r├®initialiser la 
+couleur de bordure 
+(1 ms)
+
+  ÔùÅ Application 
+Podcast IA ÔÇ║ 
+Initialisation du 
+DOM ÔÇ║ Le bouton a 
+le texte initial 
+correct
+
+    expect(received).
+toBe(expected) // 
+Object.is equality
+
+    Expected: 
+"Lancer le Podcast"
+    Received: 
+undefined
+
+    [0m [90m 49 
+|[39m
+     [90m 50 |[39m 
+        
+test([32m'Le bouton 
+a le texte initial co
+rrect'[39m[33m,[39
+m () [33m=>[39m {
+    [31m[1m>[22m[
+39m[90m 51 |[39m   
+          expect(btnT
+ext[33m.[39minnerTe
+xt)[33m.[39mtoBe([
+32m'Lancer le Podcast
+'[39m)[33m;[39m
+     [90m    |[39m 
+                     
+                 
+[31m[1m^[22m[39m
+     [90m 52 |[39m 
+        })[33m;[39m
+     [90m 53 |[39m
+     [90m 54 |[39m 
+        
+test([32m'Le loader 
+est cach├® par d├®fau
+t'[39m[33m,[39m 
+() [33m=>[39m {[0m
+
+      at Object.toBe 
+(js/app.test.js:51:39
+)
+
+  ÔùÅ Application 
+Podcast IA ÔÇ║ 
+Fonction 
+appendMessageToUI 
+ÔÇ║ Devrait cr├®er 
+un message pour 
+l'h├┤te avec le bon 
+style
+
+    expect(received).
+toBe(expected) // 
+Object.is equality
+
+    Expected: 
+"#e0f2fe"
+    Received: 
+"rgb(224, 242, 254)"
+
+    [0m [90m 230 
+|[39m             
+[36mconst[39m 
+message [33m=[39m m
+essages[[35m0[39m]
+[33m;[39m
+     [90m 231 
+|[39m             
+[90m// JSDOM ne 
+normalise pas les 
+couleurs, donc on 
+v├®rifie le format 
+hex[39m
+    [31m[1m>[22m[
+39m[90m 232 |[39m  
+           expect(mes
+sage[33m.[39mstyle
+[33m.[39mbackgroundC
+olor)[33m.[39mtoBe(
+[32m'#e0f2fe'[39m)
+[33m;[39m
+     [90m     
+|[39m               
+                     
+               
+[31m[1m^[22m[39m
+     [90m 233 
+|[39m             ex
+pect(message[33m.[3
+9mstyle[33m.[39mbor
+derLeft)[33m.[39mto
+Be([32m'4px solid #0
+284c7'[39m)[33m;[3
+9m
+     [90m 234 
+|[39m             ex
+pect(message[33m.[3
+9minnerHTML)[33m.[3
+9mtoContain([32m'
+ƒÄÖ´©Å H├┤te'[39m)[
+33m;[39m
+     [90m 235 
+|[39m             ex
+pect(message[33m.[3
+9minnerHTML)[33m.[3
+9mtoContain([32m'Bon
+jour ├á tous!'[39m)
+[33m;[39m[0m
+
+      at Object.toBe 
+(js/app.test.js:232:5
+1)
+
+  ÔùÅ Application 
+Podcast IA ÔÇ║ 
+Fonction 
+appendMessageToUI 
+ÔÇ║ Devrait cr├®er 
+un message pour 
+l'invit├® avec le 
+bon style
+
+    expect(received).
+toBe(expected) // 
+Object.is equality
+
+    Expected: 
+"#f0fdf4"
+    Received: 
+"rgb(240, 253, 244)"
+
+    [0m [90m 244 
+|[39m             
+[36mconst[39m 
+message [33m=[39m m
+essages[[35m0[39m]
+[33m;[39m
+     [90m 245 
+|[39m             
+[90m// JSDOM ne 
+normalise pas les 
+couleurs, donc on 
+v├®rifie le format 
+hex[39m
+    [31m[1m>[22m[
+39m[90m 246 |[39m  
+           expect(mes
+sage[33m.[39mstyle
+[33m.[39mbackgroundC
+olor)[33m.[39mtoBe(
+[32m'#f0fdf4'[39m)
+[33m;[39m
+     [90m     
+|[39m               
+                     
+               
+[31m[1m^[22m[39m
+     [90m 247 
+|[39m             ex
+pect(message[33m.[3
+9mstyle[33m.[39mbor
+derLeft)[33m.[39mto
+Be([32m'4px solid #1
+6a34a'[39m)[33m;[3
+9m
+     [90m 248 
+|[39m             ex
+pect(message[33m.[3
+9minnerHTML)[33m.[3
+9mtoContain([32m'
+ƒùú´©Å Invit├®'[39m)
+[33m;[39m
+     [90m 249 
+|[39m             ex
+pect(message[33m.[3
+9minnerHTML)[33m.[3
+9mtoContain([32m'Mer
+ci de me recevoir!'[
+39m)[33m;[39m[0m
+
+      at Object.toBe 
+(js/app.test.js:246:5
+1)
+
+Test Suites: 1 
+failed, 1 total
+Tests:       3 
+failed, 23 passed, 
+26 total
+Snapshots:   0 total
+Time:        1.703 s
+Ran all test suites.

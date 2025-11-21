@@ -46,26 +46,26 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
     // Fonction pour ajouter un message dans l'interface (Style Chat)
     const appendMessageToUI = (speaker, text) => {
-        const messageDiv = document.createElement('div');
-        messageDiv.style.marginBottom = "15px";
-        messageDiv.style.padding = "10px";
-        messageDiv.style.borderRadius = "8px";
-        messageDiv.style.maxWidth = "85%";
+        const msg_ia = document.createElement('div');
+        msg_ia.style.marginBottom = "15px";
+        msg_ia.style.padding = "10px";
+        msg_ia.style.borderRadius = "8px";
+        msg_ia.style.maxWidth = "85%";
 
         // Styles différents selon l'interlocuteur
         if (speaker === "Hôte") {
-            messageDiv.style.backgroundColor = "#e0f2fe"; // Bleu clair
-            messageDiv.style.borderLeft = "4px solid #0284c7";
-            messageDiv.style.marginLeft = "0";
-            messageDiv.innerHTML = `<strong>🎙️ Hôte :</strong> ${text}`;
+            msg_ia.style.backgroundColor = "#e0f2fe"; // Bleu clair
+            msg_ia.style.borderLeft = "4px solid #0284c7";
+            msg_ia.style.marginLeft = "0";
+            msg_ia.innerHTML = `<strong>🎙️ Hôte :</strong> ${text}`;
         } else {
-            messageDiv.style.backgroundColor = "#f0fdf4"; // Vert clair
-            messageDiv.style.borderLeft = "4px solid #16a34a";
-            messageDiv.style.marginLeft = "auto"; // Aligner à droite
-            messageDiv.innerHTML = `<strong>🗣️ Invité :</strong> ${text}`;
+            msg_ia.style.backgroundColor = "#f0fdf4"; // Vert clair
+            msg_ia.style.borderLeft = "4px solid #16a34a";
+            msg_ia.style.marginLeft = "auto"; // Aligner à droite
+            msg_ia.innerHTML = `<strong>🗣️ Invité :</strong> ${text}`;
         }
 
-        responseOutput.appendChild(messageDiv);
+        responseOutput.appendChild(msg_ia);
         // Scroll automatique vers le bas
         responseOutput.scrollTop = responseOutput.scrollHeight;
     };

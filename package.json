@@ -1,0 +1,21 @@
+{
+  "name": "projet-ia-for-ia",
+  "version": "1.0.0",
+  "description": "Application podcast IA avec deux AIs dialoguant",
+  "main": "js/app.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": ["ai", "podcast", "deepseek"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.23.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
