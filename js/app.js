@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
                     model: "deepseek-chat", // Modèle DeepSeek V3 ou chat
                     messages: messages,
                     temperature: 0.7, // Créativité équilibrée
-                    max_tokens: 200   // Limite la longueur des répliques pour du dynamisme
+                    max_tokens: 300   // Limite la longueur des répliques pour du dynamisme
                 })
             });
 
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             Les règles :
             1. Interlocuteur A (Hôte) : Curieux, pose des questions, relance le débat.
             2. Interlocuteur B (Invité) : Expert ou passionné, donne des détails, des anecdotes.
-            3. Format : Conversationnel, dynamique, réponses courtes (max 3 phrases).
+            3. Format : Conversationnel, dynamique, réponses brèves(max 3 phrases).
             4. Ne mets pas de préfixes comme "Hôte:" ou "Invité:", réponds juste avec le texte parlé.
             5. La conversation doit être infinie, ne jamais conclure définitivement.
             
