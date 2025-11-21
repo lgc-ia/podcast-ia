@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnText = sendBtn.querySelector('span');
     const btnLoader = document.getElementById('btnLoader');
     const responseOutput = document.getElementById('responseOutput');
+    const promptForm = document.getElementById('promptForm');
 
     // Fonction pour simuler un appel API (délai artificiel)
     const simulateApiCall = (text) => {
@@ -15,7 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Gestionnaire d'événement
-    sendBtn.addEventListener('click', async () => {
+    promptForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Empêche le rechargement de la page
+
         const text = promptInput.value.trim();
 
         // 1. Validation basique
@@ -38,7 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await simulateApiCall(text);
 
             // 4. Affichage du résultat
-            responseOutput.innerText = response;
+            responseOutput.value = response; // Utilisation de .value pour <output> ou .innerText
+            responseOutput.innerText = response; // Fallback/Explicite
             responseOutput.style.display = 'block';
 
             // Optionnel : Vider le champ
@@ -57,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Petit bonus UX : Ctrl+Enter pour envoyer
     promptInput.addEventListener('keydown', (e) => {
         if (e.ctrlKey && e.key === 'Enter') {
-            sendBtn.click();
+            promptForm.requestSubmit(); // Nouvelle méthode plus propre pour les formulaires
         }
     });
-})
+});
