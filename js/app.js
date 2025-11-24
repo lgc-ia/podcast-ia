@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 conversationHistory.push({ role: "assistant", content: reply });
 
                 // 3. Petite pause artificielle pour le rythme (lecture)
-                await new Promise(r => setTimeout(r, 2000));
+                /* await new Promise(r => setTimeout(r, 2000)); */
 
                 // 4. Relancer la boucle (Récursion)
                 if (isRunning) conversationLoop();
