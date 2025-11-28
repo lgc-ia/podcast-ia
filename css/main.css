@@ -1,149 +1,153 @@
-    /* --- 1. CONFIGURATION DE BASE & VARIABLES --- */
-        :root {
-            --bg-color: #0f172a;       /* Dark Slate */
-            --card-bg: #1e293b;        /* Lighter Dark */
-            --primary-blue: #3b82f6;   /* Bright Blue */
-            --hover-blue: #2563eb;
-            --text-main: #f8fafc;      /* White-ish */
-            --text-muted: #94a3b8;
-            --glow: 0 0 15px rgba(59, 130, 246, 0.3);
-        }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+/* --- 1. CONFIGURATION DE BASE & VARIABLES --- */
+:root {
+    --bg-color: #0f172a;       /* Dark Slate */
+    --card-bg: #1e293b;        /* Lighter Dark */
+    --primary-blue: #3b82f6;   /* Bright Blue */
+    --hover-blue: #2563eb;
+    --text-main: #f8fafc;      /* White-ish */
+    --text-muted: #94a3b8;
+    --glow: 0 0 1.5rem rgba(59, 130, 246, 0.3);
+    font-size: 62.5%; /* 1rem = 10px */
+}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        /* --- 2. CONTENEUR PRINCIPAL --- */
-        .app-container {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            animation: fadeIn 0.8s ease-out;
-        }
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-family: 'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.6rem;
+}
 
-        /* --- 3. TYPOGRAPHIE (Welcome Message) --- */
-        .welcome-text {
-            color: var(--primary-blue);
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            line-height: 1.2;
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
-            margin-bottom: 10px;
-        }
+/* --- 2. CONTENEUR PRINCIPAL --- */
+.app-container {
+    width: 100%;
+    max-width: 50rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    animation: fadeIn 0.8s ease-out;
+}
 
-        .welcome-sub {
-            color: var(--text-muted);
-            text-align: center;
-            font-size: 0.9rem;
-            margin-top: 15px;
-            margin-bottom: 10px;
-        }
+/* --- 3. TYPOGRAPHIE (Welcome Message) --- */
+.welcome-text {
+    color: var(--primary-blue);
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 0 1rem rgba(59, 130, 246, 0.2);
+    margin-bottom: 1rem;
+}
 
-        /* --- 4. ZONE DE SAISIE (Textarea) --- */
-        .input-wrapper {
-            position: relative;
-            width: 100%;
-        }
+.welcome-sub {
+    color: var(--text-muted);
+    text-align: center;
+    font-size: inherit;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
 
-        textarea {
-            width: 100%;
-            height: 150px;
-            background-color: var(--card-bg);
-            border: 2px solid #334155;
-            border-radius: 16px;
-            color: white; /* Blanc demandé pour le prompt */
-            padding: 16px;
-            font-size: 1rem;
-            resize: none; /* Empêche le redimensionnement manuel moche */
-            outline: none;
-            transition: all 0.3s ease;
-        }
+/* --- 4. ZONE DE SAISIE (Textarea) --- */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
 
-        textarea::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
+textarea {
+    width: 100%;
+    height: 15rem;
+    background-color: var(--card-bg);
+    border: 0.2rem solid #334155;
+    border-radius: 1.6rem;
+    color: white; /* Blanc demand‚ pour le prompt */
+    padding: 1.6rem;
+    font-size: inherit;
+    resize: none; /* Empˆche le redimensionnement manuel moche */
+    outline: none;
+    transition: all 0.3s ease;
+}
 
-        textarea:focus {
-            border-color: var(--primary-blue);
-            box-shadow: var(--glow);
-        }
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
 
-        /* --- 5. BOUTON D'ACTION --- */
-        .send-btn {
-            background-color: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.1s, background-color 0.3s;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
+textarea:focus {
+    border-color: var(--primary-blue);
+    box-shadow: var(--glow);
+}
 
-        .send-btn:hover {
-            background-color: var(--hover-blue);
-        }
+/* --- 5. BOUTON D'ACTION --- */
+.send-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 1.4rem;
+    border-radius: 1.2rem;
+    font-size: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.3s;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+}
 
-        .send-btn:active {
-            transform: scale(0.98);
-        }
+.send-btn:hover {
+    background-color: var(--hover-blue);
+}
 
-        .send-btn:disabled {
-            background-color: #334155;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
+.send-btn:active {
+    transform: scale(0.98);
+}
 
-        /* Simulation de réponse */
-        .response-area {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 12px;
-            background: rgba(30, 41, 59, 0.5);
-            border-left: 4px solid var(--primary-blue);
-            display: none; /* Caché par défaut */
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #e2e8f0;
-        }
+.send-btn:disabled {
+    background-color: #334155;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
 
-        /* Animation simple */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* Simulation de r‚ponse */
+.response-area {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 1.2rem;
+    background: rgba(30, 41, 59, 0.5);
+    border-left: 0.4rem solid var(--primary-blue);
+    display: none; /* Cach‚ par d‚faut */
+    font-size: inherit;
+    line-height: 1.5;
+    color: #e2e8f0;
+}
 
-        /* Spinner simple CSS */
-        .loader {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top: 3px solid white;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: none;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+/* Animation simple */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(1rem); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Spinner simple CSS */
+.loader {
+    border: 0.3rem solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top: 0.3rem solid white;
+    width: 2rem;
+    height: 2rem;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
