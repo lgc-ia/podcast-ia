@@ -10,7 +10,93 @@
 <body>
 
     <header>
-        <h1 class="welcome-text">Bonjour,que créons-nous ?</h1>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 320 120"
+  role="img"
+  aria-labelledby="title-ia desc-ia"
+>
+  <title id="title-ia">IA animée</title>
+  <desc id="desc-ia">Réseau neuronal animé à l'intérieur d'une bulle de dialogue.</desc>
+
+  <!-- Bulle de dialogue -->
+  <path
+    d="M45 32
+       h90
+       a16 16 0 0 1 16 16
+       v20
+       a16 16 0 0 1-16 16
+       H85
+       l-16 14
+       a4 4 0 0 1-6.6-3.1
+       V84
+       H45
+       a16 16 0 0 1-16-16
+       V48
+       a16 16 0 0 1 16-16
+       Z"
+    fill="none"
+    stroke="#60a5fa"
+    stroke-width="2.6"
+    stroke-linejoin="round"
+  />
+
+  <!-- Lignes du réseau : animation de "glow" -->
+  <g stroke="#38bdf8" stroke-width="1.6" stroke-linecap="round">
+    <line x1="62" y1="52" x2="92" y2="40">
+      <animate attributeName="stroke-opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+    </line>
+    <line x1="92" y1="40" x2="118" y2="52">
+      <animate attributeName="stroke-opacity" values="0.3;1;0.3" dur="2.3s" repeatCount="indefinite"/>
+    </line>
+    <line x1="62" y1="52" x2="76" y2="72">
+      <animate attributeName="stroke-opacity" values="0.3;1;0.3" dur="2.1s" repeatCount="indefinite"/>
+    </line>
+    <line x1="92" y1="40" x2="106" y2="68">
+      <animate attributeName="stroke-opacity" values="0.3;1;0.3" dur="2.4s" repeatCount="indefinite"/>
+    </line>
+    <line x1="118" y1="52" x2="106" y2="68">
+      <animate attributeName="stroke-opacity" values="0.3;1;0.3" dur="2.2s" repeatCount="indefinite"/>
+    </line>
+    <line x1="76" y1="72" x2="106" y2="68">
+      <animate attributeName="stroke-opacity" values="0.3;1;0.3" dur="2.6s" repeatCount="indefinite"/>
+    </line>
+  </g>
+
+  <!-- Nœuds : animation de pulsation -->
+  <g fill="#e5f0ff" stroke="#38bdf8" stroke-width="1.4">
+    <circle cx="62" cy="52" r="4.3">
+      <animate attributeName="r" values="4.3;5.3;4.3" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="92" cy="40" r="4.3">
+      <animate attributeName="r" values="4.3;5.3;4.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="118" cy="52" r="4.3">
+      <animate attributeName="r" values="4.3;5.3;4.3" dur="1.9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="76" cy="72" r="4.3">
+      <animate attributeName="r" values="4.3;5.3;4.3" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="106" cy="68" r="4.3">
+      <animate attributeName="r" values="4.3;5.3;4.3" dur="2.1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Points (...) animés -->
+  <g fill="#93c5fd">
+    <circle cx="182" cy="55" r="2.2">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="194" cy="55" r="2.2">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="206" cy="55" r="2.2">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
+
+        <h1 class="welcome-text">Bonjour, que créons-nous ? 🚀 </h1>
         <p class="welcome-sub">Tapez votre prompt ci-dessous</p>
     </header>
 
@@ -29,6 +115,11 @@
 
     </main>
     
+    <footer class="site-footer">
+        <p>&copy; <span id="footer-year"></span></p>
+    </footer>
+    
     <script src="./js/app.js"></script>
+   
 </body>
 </html> 

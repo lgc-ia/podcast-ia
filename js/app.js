@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnText = sendBtn.querySelector('span');
     const btnLoader = document.getElementById('btnLoader');
     const responseOutput = document.getElementById('responseOutput');
+    let date = document.getElementById('footer-year');
+    date.innerText = new Date().getFullYear();
 
     // Fonction pour simuler un appel API (délai artificiel)
     const simulateApiCall = (text) => {

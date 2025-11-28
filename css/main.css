@@ -121,7 +121,15 @@ textarea:focus {
     opacity: 0.7;
 }
 
-/* Simulation de r‚ponse */
+.site-footer {
+    width: 100%;
+    text-align: center;
+    color: var(--text-main);
+    padding: 1.2rem 0;
+    margin-top: auto;
+}
+
+/* Simulation de r'ponse */
 .response-area {
     margin-top: 2rem;
     padding: 1.5rem;
