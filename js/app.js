@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             - Ne jamais conclure la discussion, toujours laisser une ouverture.
 
             Exemples de longueur attendue :
-            - "Bonne question wesh ! Yo en gros, ça signifie qu’on utilise l’IA pour automatiser les tâches les plus répétitives."
+            - "Bonne question ! En quelque mot,qu’on utilise l’IA pour automatiser les tâches les plus répétitives."
             - "Oui, exactement, et pour les débutants ça permet de progresser plus vite sans se perdre dans les détails techniques."
 
             Commence par une courte phrase de l’Hôte qui introduit le sujet.
