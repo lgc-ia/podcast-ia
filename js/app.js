@@ -235,15 +235,14 @@ document.addEventListener("DOMContentLoaded", (e) => {
             STYLE OBLIGATOIRE :
             - Réponds TOUJOURS en français.
             - Registre soutenu : pas d'argot, pas de verlan, vocabulaire clair et précis.
-            - 1 à 2 phrases maximum.
-            - Réponse courte : 20 à 40 mots maximum, idéalement ~30 mots.
-            - Maximum 120 caractères environ.
+            - Dialogue naturel : chaque réplique doit rebondir sur la précédente.
+            - 1 phrase unique par tour, 12 à 25 mots maximum.
             - Ne PAS commencer par "Hôte:" ou "Invité:", uniquement le texte parlé.
             - Ne jamais conclure la discussion, toujours laisser une ouverture.
 
             Exemples de longueur attendue :
             - "Pourriez-vous préciser en quoi cette approche d'IA transforme concrètement nos pratiques quotidiennes ?"
-            - "Effectivement, elle facilite l'apprentissage initial et évite de se perdre dans des détails techniques superflus."
+            - "Elle structure l'apprentissage et évite de se disperser dans des détails techniques secondaires."
 
             Commence par une courte phrase de l'Hôte qui introduit le sujet.
         `;
