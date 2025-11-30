@@ -40,6 +40,14 @@
             padding-top:2rem;
         }
 
+        .robot-illustration {
+            width: 150px;
+            max-width: 50%;
+            height: auto;
+            display: block;
+            margin: 0 auto 12px;
+        }
+
         /* --- 3. TYPOGRAPHIE (Welcome Message) --- */
         .welcome-text {
             color: var(--primary-blue);
