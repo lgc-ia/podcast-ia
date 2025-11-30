@@ -101,6 +101,7 @@
             flex-direction: column;
             gap: 12px;
             width: 100%;
+            align-items: center;
         }
 
         /* --- 5. BOUTON D'ACTION --- */
@@ -114,7 +115,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.1s, background-color 0.3s;
-            width: 100%;
+            width: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
