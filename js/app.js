@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const btnText = sendBtn.querySelector('span');
     const btnLoader = document.getElementById('btnLoader');
     const responseOutput = document.getElementById('responseOutput');
+    const footerYear = document.querySelector('.footer-year');
+    if (footerYear) {
+        footerYear.textContent = new Date().getFullYear();
+    }
 
     // --- CONFIGURATION ---
 
@@ -250,9 +254,10 @@ document.addEventListener("DOMContentLoaded", (e) => {
         conversationLoop();
     });
 
-    // Ctrl+Entrée pour lancer
+    // Entrée pour lancer (Shift+Entrée autorise un saut de ligne)
     promptInput.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === 'Enter') {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
             sendBtn.click();
         }
     });
