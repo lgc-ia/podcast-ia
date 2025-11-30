@@ -6,4 +6,7 @@
 
 ## Concept
 Ce projet a pour but de faire dialoguer deux intelligences artificielles entre elles.
-L'objectif est d'observer et d'analyser les échanges générés lorsque deux modèles communiquent de manière autonome.
+L'objectif est d'observer et d'analyser les echanges generes lorsque deux modeles communiquent de maniere autonome.
+
+### Pourquoi conserver `node_modules` ?
+Nous gardons `node_modules` dans le depot pour que le projet reste executable hors ligne (et sans installation supplementaire) lors des demos ou revues. Cela limite aussi les ecarts de versions qui pourraient modifier le comportement ou les tests.
