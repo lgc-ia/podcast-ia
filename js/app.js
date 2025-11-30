@@ -236,7 +236,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
             - Réponds TOUJOURS en français.
             - Registre soutenu : pas d'argot, pas de verlan, vocabulaire clair et précis.
             - Dialogue naturel : chaque réplique doit rebondir sur la précédente.
-            - 1 phrase unique par tour, 12 à 25 mots maximum.
+            - Réponse très courte : 20 à 40 mots maximum, idéalement ~30 mots.
+            - Maximum 120 caractères environ.
             - Ne PAS commencer par "Hôte:" ou "Invité:", uniquement le texte parlé.
             - Ne jamais conclure la discussion, toujours laisser une ouverture.
 
