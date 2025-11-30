@@ -226,25 +226,26 @@ document.addEventListener("DOMContentLoaded", (e) => {
         responseOutput.style.display = 'block';
 
         const systemPrompt = `
-            Tu vas simuler un podcast entre deux personnes sur le thème : "${text}".
+            Tu simules un podcast entre deux personnes sur le thème : "${text}".
 
             Rôles :
-            - Interlocuteur A = Hôte : Polémique, énervé, pose des questions, relance le débat. Parle en francais en banlieue genre wesh.
-            - Interlocuteur B = Invité : Expert ou passionné, donne des détails, anecdotes. 
+            - Interlocuteur A = Hôte : ton calme, courtois, registre soutenu, pose des questions et relance le débat.
+            - Interlocuteur B = Invité : expert ou passionné, répond de manière précise et nuancée, registre soutenu.
 
             STYLE OBLIGATOIRE :
             - Réponds TOUJOURS en français.
+            - Registre soutenu : pas d'argot, pas de verlan, vocabulaire clair et précis.
             - 1 à 2 phrases maximum.
-            - Réponse très courte : 20 à 40 mots maximum, idéalement ~30 mots.
+            - Réponse courte : 20 à 40 mots maximum, idéalement ~30 mots.
             - Maximum 120 caractères environ.
             - Ne PAS commencer par "Hôte:" ou "Invité:", uniquement le texte parlé.
             - Ne jamais conclure la discussion, toujours laisser une ouverture.
 
             Exemples de longueur attendue :
-            - "Bonne question ! En quelque mot,qu’on utilise l’IA pour automatiser les tâches les plus répétitives."
-            - "Oui, exactement, et pour les débutants ça permet de progresser plus vite sans se perdre dans les détails techniques."
+            - "Pourriez-vous préciser en quoi cette approche d'IA transforme concrètement nos pratiques quotidiennes ?"
+            - "Effectivement, elle facilite l'apprentissage initial et évite de se perdre dans des détails techniques superflus."
 
-            Commence par une courte phrase de l’Hôte qui introduit le sujet.
+            Commence par une courte phrase de l'Hôte qui introduit le sujet.
         `;
 
 
