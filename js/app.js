@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
     const promptInput = document.getElementById('promptInput');
     const sendBtn = document.getElementById('sendBtn');
+    const clearBtn = document.getElementById('clearBtn');
     const btnText = sendBtn.querySelector('span');
     const btnLoader = document.getElementById('btnLoader');
     const responseOutput = document.getElementById('responseOutput');
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     if (footerYear) {
         footerYear.textContent = new Date().getFullYear();
     }
+    
 
     // --- CONFIGURATION ---
 
@@ -253,6 +255,18 @@ document.addEventListener("DOMContentLoaded", (e) => {
         console.log(`Démarrage du podcast sur: ${text}`);
         conversationLoop();
     });
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            if (isRunning) {
+                stopPodcast();
+            }
+            promptInput.value = "";
+            responseOutput.innerHTML = "";
+            responseOutput.style.display = "none";
+            promptInput.focus();
+        });
+    }
 
     // Entrée pour lancer (Shift+Entrée autorise un saut de ligne)
     promptInput.addEventListener('keydown', (e) => {

@@ -36,6 +36,9 @@
             gap: 20px;
             animation: fadeIn 0.8s ease-out;
         }
+        header{
+            padding-top:2rem;
+        }
 
         /* --- 3. TYPOGRAPHIE (Welcome Message) --- */
         .welcome-text {
@@ -83,6 +86,13 @@
         textarea:focus {
             border-color: var(--primary-blue);
             box-shadow: var(--glow);
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
         }
 
         /* --- 5. BOUTON D'ACTION --- */

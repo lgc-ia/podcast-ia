@@ -190,15 +190,20 @@
             <textarea id="promptInput" placeholder="Écrivez votre idée ici..." aria-label="Votre prompt"></textarea>
         </div>
 
-        <button type="button" id="sendBtn" class="send-btn">
-            <span>⚙️Générer</span>
-            <div class="loader" id="btnLoader"></div>
-        </button>
+        <div class="actions">
+            <button type="button" id="sendBtn" class="send-btn">
+                <span>⚙️Générer</span>
+                <div class="loader" id="btnLoader"></div>
+            </button>
+            <button type="button" id="clearBtn" class="send-btn">
+                <span>Effacer</span>
+            </button>
+        </div>
 
     </main>
     
     <footer>
-        <p>lgc - R&D - <span id="footer-year"></span></p>
+        <p>lgc - R&D - <span class="footer-year"></span></p>
     </footer>
     
     <script src="./js/app.js"></script>
