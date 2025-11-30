@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const stopPodcast = () => {
         isRunning = false;
         sendBtn.disabled = false;
-        btnText.innerText = "Lancer le Podcast";
+        btnText.innerText = "⚙️Lancer le Podcast";
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
     };
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         }
 
         isRunning = true;
-        btnText.innerText = "Arrêter le Podcast";
+        btnText.innerText = "⚙️Arrêter le Podcast";
         btnLoader.style.display = 'block';
 
         responseOutput.innerHTML = "";
