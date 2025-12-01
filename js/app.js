@@ -26,6 +26,33 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
     let isRunning = false;            // Pour arrêter le podcast
     let conversationHistory = [];     // Historique pour le LLM
+    let currentAudio = null;          // Audio en cours de lecture
+    let currentAudioUrl = null;       // URL à libérer pour l'audio courant
+    let currentAudioResolver = null;  // Permet de résoudre la promesse de lecture si on stoppe manuellement
+
+    // Stoppe proprement le son en cours (si présent) et résout la promesse rattachée
+    const stopAudioPlayback = () => {
+        if (currentAudio) {
+            currentAudio.onended = null;
+            currentAudio.onerror = null;
+            currentAudio.onpause = null;
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+
+        if (currentAudioUrl) {
+            URL.revokeObjectURL(currentAudioUrl);
+        }
+
+        currentAudio = null;
+        currentAudioUrl = null;
+
+        if (currentAudioResolver) {
+            const resolver = currentAudioResolver;
+            currentAudioResolver = null;
+            resolver();
+        }
+    };
 
     // --- FONCTIONS IA ---
 
@@ -87,24 +114,45 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
             const audioBlob = await response.blob();
             const audioUrl = URL.createObjectURL(audioBlob);
+            stopAudioPlayback(); // Évite tout chevauchement de son précédent
             const audio = new Audio(audioUrl);
+            currentAudio = audio;
+            currentAudioUrl = audioUrl;
 
-            // On retourne une promesse qui se résout à la fin de la lecture
-            return new Promise((resolve, reject) => {
-                audio.onended = () => {
-                    URL.revokeObjectURL(audioUrl);
+            // On retourne une promesse qui se résout à la fin de la lecture ou en cas d'arrêt manuel
+            return new Promise((resolve) => {
+                let settled = false;
+                currentAudioResolver = () => {
+                    if (settled) return;
+                    settled = true;
                     resolve();
                 };
-                audio.onerror = (err) => {
-                    console.error("Erreur lecture audio:", err);
-                    URL.revokeObjectURL(audioUrl);
-                    resolve(); // on résout quand même pour ne pas bloquer la boucle
+
+                const finalizePlayback = () => {
+                    if (currentAudio === audio) {
+                        stopAudioPlayback();
+                    } else if (currentAudioResolver) {
+                        const resolver = currentAudioResolver;
+                        currentAudioResolver = null;
+                        resolver();
+                    }
                 };
 
-                // Peut être bloqué si autoplay n’est pas autorisé, mais comme ça démarre après un clic, ça passe en général.
+                audio.onended = finalizePlayback;
+                audio.onerror = (err) => {
+                    console.error("Erreur lecture audio:", err);
+                    finalizePlayback();
+                };
+                audio.onpause = () => {
+                    if (!audio.ended) {
+                        finalizePlayback();
+                    }
+                };
+
+            // Peut être bloqué si autoplay n'est pas autorisé, mais comme ça démarre après un clic, ça passe en général.
                 audio.play().catch((err) => {
                     console.warn("Impossible de lancer l'audio (autoplay ?) :", err);
-                    resolve(); // on ne bloque pas la boucle
+                    finalizePlayback();
                 });
             });
 
@@ -197,6 +245,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         btnText.innerText = "⚙️Lancer le Podcast";
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
+        stopAudioPlayback();
     };
 
     // --- GESTIONNAIRES D'ÉVÉNEMENTS ---
