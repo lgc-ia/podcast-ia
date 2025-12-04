@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
     const btnLoader = document.getElementById('btnLoader');
     const responseOutput = document.getElementById('responseOutput');
     const footerYear = document.querySelector('.footer-year');
+    let isHostTurn = true; // l'Hôte commence
+    const MAX_TURNS_FOR_API = 10; // nb de répliques max envoyées au modèle (hors message système)
+
     if (footerYear) {
         footerYear.textContent = new Date().getFullYear();
     }
@@ -55,6 +58,21 @@ document.addEventListener("DOMContentLoaded", (e) => {
     };
 
     // --- FONCTIONS IA ---
+
+    // Ne renvoie que le message système + les X derniers messages
+    const getMessagesForApi = () => {
+        if (conversationHistory.length === 0) return [];
+
+        const systemMessage = conversationHistory[0]; // { role: "system", ... }
+        const otherMessages = conversationHistory.slice(1); // tout le reste (assistant)
+
+        if (otherMessages.length <= MAX_TURNS_FOR_API) {
+            return conversationHistory;
+        }
+
+        const trimmed = otherMessages.slice(-MAX_TURNS_FOR_API);
+        return [systemMessage, ...trimmed];
+    };
 
     // Appel DeepSeek (compatible OpenAI)
     const callDeepSeek = async (messages) => {
@@ -204,10 +222,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
         // On alterne Hôte / Invité :
         // Après le system (index 0), premier tour => turnCount = 1 -> Hôte
         // puis Invité, etc.
-        const currentSpeaker = (turnCount % 2 !== 0) ? "Hôte" : "Invité";
+        const currentSpeaker = isHostTurn ? "Hôte" : "Invité";
 
         try {
-            const reply = await callDeepSeek(conversationHistory);
+            const messagesForApi = getMessagesForApi();
+            const reply = await callDeepSeek(messagesForApi);
 
             if (!reply) {
                 appendMessageToUI("Système", "Erreur de connexion à l'IA. Arrêt du podcast.");
@@ -226,6 +245,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 role: "assistant",
                 content: reply
             });
+
+            // 🔁 Toggle du speaker
+            isHostTurn = !isHostTurn;
 
             // 4. On relance la boucle si toujours en cours
             if (isRunning) {
@@ -257,6 +279,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         // Si déjà en cours, clic = on arrête
         if (isRunning) {
             stopPodcast();
+            isHostTurn = true; // 🔁 Reset pour la prochaine fois
             return;
         }
 
@@ -266,6 +289,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
             setTimeout(() => promptInput.style.borderColor = '', 2000);
             return;
         }
+
+        // 🚨 Ici on démarre : on reset le speaker AVANT de lancer
+        isHostTurn = true;
 
         isRunning = true;
         btnText.innerText = "⚙️Arrêter le Podcast";
