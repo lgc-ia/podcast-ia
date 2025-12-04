@@ -10,3 +10,13 @@ L'objectif est d'observer et d'analyser les echanges generes lorsque deux modele
 
 ### Pourquoi conserver `node_modules` ?
 Nous gardons `node_modules` dans le depot pour que le projet reste executable hors ligne (et sans installation supplementaire) lors des demos ou revues. Cela limite aussi les ecarts de versions qui pourraient modifier le comportement ou les tests.
+
+## dev locale
+
+``` bash
+npm i -g vercel
+vercel login
+vercel dev
+#
+http://localhost:3000
+```

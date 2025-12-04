@@ -14,13 +14,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
     if (footerYear) {
         footerYear.textContent = new Date().getFullYear();
     }
-    
 
     // --- CONFIGURATION ---
 
     // ⚠️ ATTENTION : En production, ne jamais laisser une clé API côté client.
-    const API_KEY = "sk-553d888c4f9b4bf8af4eedd580629f3d";
-    const API_URL = "https://api.deepseek.com/chat/completions";
+    // On passe désormais par notre backend Vercel
+    const API_URL = "/api/chat";
 
     // TTS : endpoints Piper HTTP
     // Tu peux inverser les URLs si tu veux Hôte=femme, Invité=homme.
@@ -75,20 +74,15 @@ document.addEventListener("DOMContentLoaded", (e) => {
     };
 
     // Appel DeepSeek (compatible OpenAI)
+    // Appel via backend /api/chat
     const callDeepSeek = async (messages) => {
         try {
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${API_KEY}`
                 },
-                body: JSON.stringify({
-                    model: "deepseek-chat",
-                    messages: messages,
-                    temperature: 0.9,
-                    // max_tokens: 300
-                })
+                body: JSON.stringify({ messages }), // on envoie juste messages
             });
 
             if (!response.ok) {
