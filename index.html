@@ -1,212 +1,248 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interface simple pour interagir avec une IA via des prompts.">
-    <title>IA Prompt Interface</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
-    <link rel="manifest" href="./favicon/site.webmanifest">
-    <link rel="shortcut icon" href="./favicon/favicon.ico">
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-
-    <header>
-        <svg
-    class="robot-illustration"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 200 140"
-    role="img"
-    aria-labelledby="title-robot desc-robot"
-    >
-    <title id="title-robot">Tête de robot IA</title>
-    <desc id="desc-robot">
-        Tête de robot simple avec animation des yeux et de l'antenne,
-        symbolisant une intelligence artificielle capable de communiquer.
-    </desc>
-
-    <!-- ANTENNE -->
-    <line
-        x1="100"
-        y1="10"
-        x2="100"
-        y2="28"
-        stroke="#60a5fa"
-        stroke-width="3"
-        stroke-linecap="round"
-    >
-        <animate attributeName="y2" values="26;30;26" dur="1.6s" repeatCount="indefinite" />
-    </line>
-
-    <circle cx="100" cy="8" r="5" fill="#38bdf8">
-        <animate
-        attributeName="r"
-        values="5;7;5"
-        dur="1.6s"
-        repeatCount="indefinite"
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Interface simple pour interagir avec une IA via des prompts."
         />
-        <animate
-        attributeName="opacity"
-        values="0.6;1;0.6"
-        dur="1.6s"
-        repeatCount="indefinite"
-        />
-    </circle>
+        <title>IA Prompt Interface</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png" />
+        <link rel="manifest" href="./favicon/site.webmanifest" />
+        <link rel="shortcut icon" href="./favicon/favicon.ico" />
+        <link rel="stylesheet" href="./css/main.css" />
+    </head>
+    <body>
+        <header>
+            <svg
+                class="robot-illustration"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 200 140"
+                role="img"
+                aria-labelledby="title-robot desc-robot"
+            >
+                <title id="title-robot">Tête de robot IA</title>
+                <desc id="desc-robot">
+                    Tête de robot simple avec animation des yeux et de l'antenne, symbolisant une
+                    intelligence artificielle capable de communiquer.
+                </desc>
 
-    <!-- TÊTE -->
-    <rect
-        x="40"
-        y="30"
-        rx="16"
-        ry="16"
-        width="120"
-        height="90"
-        fill="none"
-        stroke="#60a5fa"
-        stroke-width="3"
-    />
+                <!-- ANTENNE -->
+                <line
+                    x1="100"
+                    y1="10"
+                    x2="100"
+                    y2="28"
+                    stroke="#60a5fa"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                >
+                    <animate
+                        attributeName="y2"
+                        values="26;30;26"
+                        dur="1.6s"
+                        repeatCount="indefinite"
+                    />
+                </line>
 
-    <!-- OREILLES / CÔTÉS -->
-    <rect x="30" y="50" width="8" height="40" rx="3" fill="#1d4ed8" />
-    <rect x="162" y="50" width="8" height="40" rx="3" fill="#1d4ed8" />
+                <circle cx="100" cy="8" r="5" fill="#38bdf8">
+                    <animate attributeName="r" values="5;7;5" dur="1.6s" repeatCount="indefinite" />
+                    <animate
+                        attributeName="opacity"
+                        values="0.6;1;0.6"
+                        dur="1.6s"
+                        repeatCount="indefinite"
+                    />
+                </circle>
 
-    <!-- YEUX (cercles + pupilles avec clignement) -->
-    <!-- Yeux externes -->
-    <circle cx="70" cy="65" r="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2" />
-    <circle cx="130" cy="65" r="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2" />
+                <!-- TÊTE -->
+                <rect
+                    x="40"
+                    y="30"
+                    rx="16"
+                    ry="16"
+                    width="120"
+                    height="90"
+                    fill="none"
+                    stroke="#60a5fa"
+                    stroke-width="3"
+                />
 
-    <!-- Pupilles -->
-    <circle cx="70" cy="65" r="5" fill="#38bdf8">
-        <!-- clignement via variation de rayon -->
-        <animate
-        attributeName="r"
-        values="5;1;5"
-        keyTimes="0;0.1;1"
-        dur="3s"
-        repeatCount="indefinite"
-        />
-    </circle>
+                <!-- OREILLES / CÔTÉS -->
+                <rect x="30" y="50" width="8" height="40" rx="3" fill="#1d4ed8" />
+                <rect x="162" y="50" width="8" height="40" rx="3" fill="#1d4ed8" />
 
-    <circle cx="130" cy="65" r="5" fill="#38bdf8">
-        <animate
-        attributeName="r"
-        values="5;1;5"
-        keyTimes="0;0.1;1"
-        dur="3.2s"
-        repeatCount="indefinite"
-        />
-    </circle>
+                <!-- YEUX (cercles + pupilles avec clignement) -->
+                <!-- Yeux externes -->
+                <circle cx="70" cy="65" r="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2" />
+                <circle cx="130" cy="65" r="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2" />
 
-    <!-- PETIT REFLET DANS LES YEUX -->
-    <circle cx="67" cy="62" r="2" fill="#e5f0ff" opacity="0.8" />
-    <circle cx="127" cy="62" r="2" fill="#e5f0ff" opacity="0.8" />
+                <!-- Pupilles -->
+                <circle cx="70" cy="65" r="5" fill="#38bdf8">
+                    <!-- clignement via variation de rayon -->
+                    <animate
+                        attributeName="r"
+                        values="5;1;5"
+                        keyTimes="0;0.1;1"
+                        dur="3s"
+                        repeatCount="indefinite"
+                    />
+                </circle>
 
-    <!-- BOUCHE / AFFICHAGE -->
-    <rect
-        x="70"
-        y="90"
-        width="60"
-        height="14"
-        rx="7"
-        fill="#020617"
-        stroke="#38bdf8"
-        stroke-width="1.5"
-    />
+                <circle cx="130" cy="65" r="5" fill="#38bdf8">
+                    <animate
+                        attributeName="r"
+                        values="5;1;5"
+                        keyTimes="0;0.1;1"
+                        dur="3.2s"
+                        repeatCount="indefinite"
+                    />
+                </circle>
 
-    <!-- Petites LED de la bouche (type equalizer) -->
-    <g>
-        <rect x="76" y="93" width="6" height="8" rx="2" fill="#22c55e">
-        <animate
-            attributeName="height"
-            values="4;10;4"
-            dur="1.4s"
-            repeatCount="indefinite"
-        />
-        <animate
-            attributeName="y"
-            values="97;91;97"
-            dur="1.4s"
-            repeatCount="indefinite"
-        />
-        </rect>
+                <!-- PETIT REFLET DANS LES YEUX -->
+                <circle cx="67" cy="62" r="2" fill="#e5f0ff" opacity="0.8" />
+                <circle cx="127" cy="62" r="2" fill="#e5f0ff" opacity="0.8" />
 
-        <rect x="92" y="93" width="6" height="8" rx="2" fill="#eab308">
-        <animate
-            attributeName="height"
-            values="10;4;10"
-            dur="1.3s"
-            repeatCount="indefinite"
-        />
-        <animate
-            attributeName="y"
-            values="91;97;91"
-            dur="1.3s"
-            repeatCount="indefinite"
-        />
-        </rect>
+                <!-- BOUCHE / AFFICHAGE -->
+                <rect
+                    x="70"
+                    y="90"
+                    width="60"
+                    height="14"
+                    rx="7"
+                    fill="#020617"
+                    stroke="#38bdf8"
+                    stroke-width="1.5"
+                />
 
-        <rect x="108" y="93" width="6" height="8" rx="2" fill="#22c55e">
-        <animate
-            attributeName="height"
-            values="4;10;4"
-            dur="1.5s"
-            repeatCount="indefinite"
-        />
-        <animate
-            attributeName="y"
-            values="97;91;97"
-            dur="1.5s"
-            repeatCount="indefinite"
-        />
-        </rect>
+                <!-- Petites LED de la bouche (type equalizer) -->
+                <g>
+                    <rect x="76" y="93" width="6" height="8" rx="2" fill="#22c55e">
+                        <animate
+                            attributeName="height"
+                            values="4;10;4"
+                            dur="1.4s"
+                            repeatCount="indefinite"
+                        />
+                        <animate
+                            attributeName="y"
+                            values="97;91;97"
+                            dur="1.4s"
+                            repeatCount="indefinite"
+                        />
+                    </rect>
 
-        <rect x="120" y="93" width="6" height="8" rx="2" fill="#eab308">
-        <animate
-            attributeName="height"
-            values="8;4;8"
-            dur="1.6s"
-            repeatCount="indefinite"
-        />
-        <animate
-            attributeName="y"
-            values="93;97;93"
-            dur="1.6s"
-            repeatCount="indefinite"
-        />
-        </rect>
-    </g>
-        </svg>
-        <h1 class="welcome-text">Bonjour, de quoi parlons-nous ? 🚀</h1>
-        <p class="welcome-sub">Tapez votre prompt ci-dessous</p>
-    </header>
+                    <rect x="92" y="93" width="6" height="8" rx="2" fill="#eab308">
+                        <animate
+                            attributeName="height"
+                            values="10;4;10"
+                            dur="1.3s"
+                            repeatCount="indefinite"
+                        />
+                        <animate
+                            attributeName="y"
+                            values="91;97;91"
+                            dur="1.3s"
+                            repeatCount="indefinite"
+                        />
+                    </rect>
 
-    <main class="app-container">
-      
-        <div id="responseOutput" class="response-area"></div>
+                    <rect x="108" y="93" width="6" height="8" rx="2" fill="#22c55e">
+                        <animate
+                            attributeName="height"
+                            values="4;10;4"
+                            dur="1.5s"
+                            repeatCount="indefinite"
+                        />
+                        <animate
+                            attributeName="y"
+                            values="97;91;97"
+                            dur="1.5s"
+                            repeatCount="indefinite"
+                        />
+                    </rect>
 
-        <div class="input-wrapper" role="region" aria-label="Zone de saisie du prompt">
-            <textarea id="promptInput" placeholder="Écrivez votre idée ici..." aria-label="Votre prompt"></textarea>
+                    <rect x="120" y="93" width="6" height="8" rx="2" fill="#eab308">
+                        <animate
+                            attributeName="height"
+                            values="8;4;8"
+                            dur="1.6s"
+                            repeatCount="indefinite"
+                        />
+                        <animate
+                            attributeName="y"
+                            values="93;97;93"
+                            dur="1.6s"
+                            repeatCount="indefinite"
+                        />
+                    </rect>
+                </g>
+            </svg>
+            <h1 class="welcome-text">Bonjour, de quoi parlons-nous ? 🚀</h1>
+            <p class="welcome-sub">Tapez votre prompt ci-dessous</p>
+        </header>
+
+        <div class="podcast-settings">
+            <label>
+                Situation
+                <input
+                    id="situationInput"
+                    type="text"
+                    placeholder="podcast pédagogique"
+                    value="podcast pédagogique"
+                />
+            </label>
+
+            <label>
+                Description voix homme (Hôte)
+                <input
+                    id="hostDescInput"
+                    type="text"
+                    placeholder="enseignant enthousiaste et bienveillant"
+                    value="enseignant enthousiaste et bienveillant"
+                />
+            </label>
+
+            <label>
+                Description voix femme (Invitée)
+                <input
+                    id="guestDescInput"
+                    type="text"
+                    placeholder="enseignante enthousiaste et bienveillante"
+                    value="enseignante enthousiaste et bienveillante"
+                />
+            </label>
         </div>
 
-        <div class="actions">
-            <button type="button" id="sendBtn" class="send-btn" aria-label="Générer">
-                <span>⚙️Générer</span>
-                <div class="loader" id="btnLoader"></div>
-            </button>
-            <button type="button" id="clearBtn" class="send-btn" aria-label="Effacer">
-                <span>🧹Effacer</span>
-            </button>
-        </div>
+        <main class="app-container">
+            <div id="responseOutput" class="response-area"></div>
 
-    </main>
-    
-    <footer>
-        <p>lgc - R&D - <span class="footer-year"></span></p>
-    </footer>
-    
-    <script src="./js/app.js"></script>
-</body>
+            <div class="input-wrapper" role="region" aria-label="Zone de saisie du prompt">
+                <textarea
+                    id="promptInput"
+                    placeholder="Écrivez votre idée ici..."
+                    aria-label="Votre prompt"
+                ></textarea>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="sendBtn" class="send-btn" aria-label="Générer">
+                    <span>⚙️Générer</span>
+                    <div class="loader" id="btnLoader"></div>
+                </button>
+                <button type="button" id="clearBtn" class="send-btn" aria-label="Effacer">
+                    <span>🧹Effacer</span>
+                </button>
+            </div>
+        </main>
+
+        <footer>
+            <p>lgc - R&D - <span class="footer-year"></span></p>
+        </footer>
+
+        <script src="./js/app.js"></script>
+    </body>
 </html>
