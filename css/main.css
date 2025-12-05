@@ -67,6 +67,67 @@
             margin-bottom: 10px;
         }
 
+        /* --- 4. CHAMPS CONTEXTE PODCAST --- */
+        .podcast-settings {
+            width: 100%;
+            max-width: 720px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            margin: 14px auto 6px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(30, 41, 59, 0.5));
+            border: 1px solid #334155;
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .podcast-settings label {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: var(--text-main);
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .podcast-settings label:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-1px);
+        }
+
+        .podcast-settings input {
+            width: 100%;
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .podcast-settings input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .podcast-settings input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: var(--glow);
+        }
+
+        @media (min-width: 720px) {
+            .podcast-settings {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         /* --- 4. ZONE DE SAISIE (Textarea) --- */
         .input-wrapper {
             position: relative;
