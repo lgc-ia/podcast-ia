@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     const promptInput = document.getElementById('promptInput');
     const sendBtn = document.getElementById('sendBtn');
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     // TTS : endpoints Piper HTTP
     // Tu peux inverser les URLs si tu veux Hôte=femme, Invité=homme.
     const TTS_HOST_URL = "https://ttsh.lagrandeclasse.fr/"; // Hôte -> femme
-    const TTS_GUEST_URL = "https://ttsf.lagrandeclasse.fr/"; // Invité -> homme 
+    const TTS_GUEST_URL = "https://ttsf.lagrandeclasse.fr/"; // Invité -> homme
 
     let isRunning = false;            // Pour arrêter le podcast
     let conversationHistory = [];     // Historique pour le LLM
@@ -99,6 +99,36 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
     // --- FONCTIONS TTS ---
 
+    // Découpe un texte en petits blocs pour le TTS (phrases + longueur max)
+    const splitIntoChunks = (text, maxLen = 220) => {
+        // Découpage grossier en phrases sur . ! ?
+        const sentences = text.match(/[^.!?]+[.!?]?/g) || [text];
+
+        const chunks = [];
+        let current = '';
+
+        for (const raw of sentences) {
+            const s = raw.trim();
+            if (!s) continue;
+
+            if ((current + ' ' + s).length > maxLen) {
+                if (current) chunks.push(current.trim());
+                // Si une seule phrase dépasse maxLen, on la pousse telle quelle
+                if (s.length > maxLen) {
+                    chunks.push(s);
+                    current = '';
+                } else {
+                    current = s;
+                }
+            } else {
+                current = current ? current + ' ' + s : s;
+            }
+        }
+
+        if (current) chunks.push(current.trim());
+        return chunks;
+    };
+
     // Récupère l’URL de base TTS en fonction de l’interlocuteur
     const getTTSBaseUrlForSpeaker = (speaker) => {
         if (speaker === "Hôte") return TTS_HOST_URL;
@@ -107,8 +137,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
         return TTS_HOST_URL;
     };
 
-    // Appelle le TTS et joue le son, puis résout la promesse quand l’audio est terminé
-    const speakTextForSpeaker = async (speaker, text) => {
+    // Joue un seul "chunk" TTS pour un speaker
+    const playTTSChunkForSpeaker = async (speaker, text) => {
         try {
             const baseUrl = getTTSBaseUrlForSpeaker(speaker);
             const params = new URLSearchParams({
@@ -161,7 +191,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
                     }
                 };
 
-            // Peut être bloqué si autoplay n'est pas autorisé, mais comme ça démarre après un clic, ça passe en général.
+                // Peut être bloqué si autoplay n'est pas autorisé, mais comme ça démarre après un clic, ça passe en général.
                 audio.play().catch((err) => {
                     console.warn("Impossible de lancer l'audio (autoplay ?) :", err);
                     finalizePlayback();
@@ -172,6 +202,20 @@ document.addEventListener("DOMContentLoaded", (e) => {
             console.error("Erreur TTS:", e);
             // On ne bloque pas la boucle si le TTS plante
             return;
+        }
+    };
+
+    // Appelle le TTS en mode chunké : plusieurs petits appels séquentiels
+    const speakTextForSpeaker = async (speaker, fullText) => {
+        const chunks = splitIntoChunks(fullText, 220);
+        console.log(`TTS ${speaker} chunks:`, chunks);
+
+        for (const chunk of chunks) {
+            if (!isRunning) {
+                // Si le podcast est arrêté entre deux chunks, on sort proprement
+                break;
+            }
+            await playTTSChunkForSpeaker(speaker, chunk);
         }
     };
 
@@ -231,7 +275,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             // 1. Affichage texte
             appendMessageToUI(currentSpeaker, reply);
 
-            // 2. Lecture audio via TTS
+            // 2. Lecture audio via TTS (chunkée)
             await speakTextForSpeaker(currentSpeaker, reply);
 
             // 3. Mise à jour de l’historique pour DeepSeek
@@ -316,7 +360,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
             Commence par une courte phrase de l'Hôte qui introduit le sujet.
         `;
-
 
         conversationHistory = [
             { role: "system", content: systemPrompt }
