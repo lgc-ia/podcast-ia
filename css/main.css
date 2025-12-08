@@ -238,6 +238,73 @@
             opacity: 0.8;
         }
 
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 14px;
+            }
+
+            .page-grid {
+                gap: 16px;
+            }
+
+            header {
+                padding-top: 1.2rem;
+            }
+
+            .robot-illustration {
+                width: 14rem;
+                max-width: 70%;
+                margin-bottom: 8px;
+            }
+
+            .podcast-settings {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .podcast-settings label {
+                padding: 10px 12px;
+                gap: 6px;
+            }
+
+            textarea {
+                height: 130px;
+                padding: 14px;
+            }
+
+            .actions {
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .send-btn {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 600px) and (max-width: 959px) {
+            body {
+                padding: 20px;
+            }
+
+            .page-grid {
+                gap: 20px;
+                max-width: 900px;
+            }
+
+            .actions {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 16px;
+            }
+
+            .send-btn {
+                width: 48%;
+                min-width: 180px;
+            }
+        }
+
         @media (min-width: 960px) {
             .page-grid {
                 display: grid;
