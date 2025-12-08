@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', (e) => {
-    e.preventDefault()
+    e.preventDefault() /* test */
 
     const promptInput = document.getElementById('promptInput')
     const sendBtn = document.getElementById('sendBtn')
@@ -11,40 +11,54 @@ document.addEventListener('DOMContentLoaded', (e) => {
     let isHostTurn = true // l'Hôte commence
     const MAX_TURNS_FOR_API = 10 // nb de répliques max envoyées au modèle (hors message système)
 
-    // 🎚️ NEW: champs de configuration dans la page
+    // 🎚️ champs de configuration dans la page
     const situationInput = document.getElementById('situationInput')
     const hostDescInput = document.getElementById('hostDescInput')
     const guestDescInput = document.getElementById('guestDescInput')
 
-    // 🎚️ NEW: valeurs par défaut si l’utilisateur ne remplit rien
+    const setupDefaultFieldBehavior = (input, defaultValue) => {
+        if (!input) return
+        input.addEventListener('focus', () => {
+            if (input.value.trim() === defaultValue.trim()) {
+                input.value = ''
+            } else {
+                input.select()
+            }
+        })
+        input.addEventListener('blur', () => {
+            if (!input.value.trim()) {
+                input.value = defaultValue
+            }
+        })
+    }
+
+    // 🎚️ valeurs par défaut si l’utilisateur ne remplit rien
     const DEFAULT_SITUATION = 'podcast pédagogique'
     const DEFAULT_HOST_DESC =
         'un enseignant homme enthousiaste et bienveillant, ton calme, courtois, registre soutenu, qui pose des questions et relance le débat'
     const DEFAULT_GUEST_DESC =
         'une enseignante femme enthousiaste et bienveillante, experte ou passionnée, qui répond de manière précise et nuancée, registre soutenu'
 
+    setupDefaultFieldBehavior(situationInput, DEFAULT_SITUATION)
+    setupDefaultFieldBehavior(hostDescInput, DEFAULT_HOST_DESC)
+    setupDefaultFieldBehavior(guestDescInput, DEFAULT_GUEST_DESC)
+
     if (footerYear) {
         footerYear.textContent = new Date().getFullYear()
     }
 
     // --- CONFIGURATION ---
-
-    // ⚠️ ATTENTION : En production, ne jamais laisser une clé API côté client.
-    // On passe désormais par notre backend Vercel
     const API_URL = '/api/chat'
 
-    // TTS : endpoints Piper HTTP
-    // Tu peux inverser les URLs si tu veux Hôte=femme, Invité=homme.
     const TTS_HOST_URL = 'https://ttsh.lagrandeclasse.fr/' // Hôte -> femme
     const TTS_GUEST_URL = 'https://ttsf.lagrandeclasse.fr/' // Invité -> homme
 
-    let isRunning = false // Pour arrêter le podcast
-    let conversationHistory = [] // Historique pour le LLM
-    let currentAudio = null // Audio en cours de lecture
-    let currentAudioUrl = null // URL à libérer pour l'audio courant
-    let currentAudioResolver = null // Permet de résoudre la promesse de lecture si on stoppe manuellement
+    let isRunning = false
+    let conversationHistory = [] // Historique des messages envoyés au LLM (system + assistant)
+    let currentAudio = null
+    let currentAudioUrl = null
+    let currentAudioResolver = null
 
-    // Stoppe proprement le son en cours (si présent) et résout la promesse rattachée
     const stopAudioPlayback = () => {
         if (currentAudio) {
             currentAudio.onended = null
@@ -70,12 +84,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     // --- FONCTIONS IA ---
 
-    // Ne renvoie que le message système + les X derniers messages
     const getMessagesForApi = () => {
         if (conversationHistory.length === 0) return []
 
-        const systemMessage = conversationHistory[0] // { role: "system", ... }
-        const otherMessages = conversationHistory.slice(1) // tout le reste (assistant)
+        const systemMessage = conversationHistory[0]
+        const otherMessages = conversationHistory.slice(1)
 
         if (otherMessages.length <= MAX_TURNS_FOR_API) {
             return conversationHistory
@@ -85,8 +98,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
         return [systemMessage, ...trimmed]
     }
 
-    // Appel DeepSeek (compatible OpenAI)
-    // Appel via backend /api/chat
     const callDeepSeek = async (messages) => {
         try {
             const response = await fetch(API_URL, {
@@ -94,7 +105,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ messages }), // on envoie juste messages
+                body: JSON.stringify({ messages }),
             })
 
             if (!response.ok) {
@@ -111,9 +122,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
     // --- FONCTIONS TTS ---
 
-    // Découpe un texte en petits blocs pour le TTS (phrases + longueur max)
     const splitIntoChunks = (text, maxLen = 220) => {
-        // Découpage grossier en phrases sur . ! ?
         const sentences = text.match(/[^.!?]+[.!?]?/g) || [text]
 
         const chunks = []
@@ -125,7 +134,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
             if ((current + ' ' + s).length > maxLen) {
                 if (current) chunks.push(current.trim())
-                // Si une seule phrase dépasse maxLen, on la pousse telle quelle
                 if (s.length > maxLen) {
                     chunks.push(s)
                     current = ''
@@ -141,22 +149,18 @@ document.addEventListener('DOMContentLoaded', (e) => {
         return chunks
     }
 
-    // Récupère l’URL de base TTS en fonction de l’interlocuteur
     const getTTSBaseUrlForSpeaker = (speaker) => {
         if (speaker === 'Hôte') return TTS_HOST_URL
         if (speaker === 'Invité') return TTS_GUEST_URL
-        // fallback : Hôte
         return TTS_HOST_URL
     }
 
-    // Joue un seul "chunk" TTS pour un speaker
     const playTTSChunkForSpeaker = async (speaker, text) => {
         try {
             const baseUrl = getTTSBaseUrlForSpeaker(speaker)
             const params = new URLSearchParams({
                 text: text,
                 format: 'wav',
-                // si besoin : speaker_id, etc.
             })
 
             const ttsUrl = `${baseUrl}?${params.toString()}`
@@ -168,12 +172,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
             const audioBlob = await response.blob()
             const audioUrl = URL.createObjectURL(audioBlob)
-            stopAudioPlayback() // Évite tout chevauchement de son précédent
+            stopAudioPlayback()
             const audio = new Audio(audioUrl)
             currentAudio = audio
             currentAudioUrl = audioUrl
 
-            // On retourne une promesse qui se résout à la fin de la lecture ou en cas d'arrêt manuel
             return new Promise((resolve) => {
                 let settled = false
                 currentAudioResolver = () => {
@@ -203,7 +206,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     }
                 }
 
-                // Peut être bloqué si autoplay n'est pas autorisé, mais comme ça démarre après un clic, ça passe en général.
                 audio.play().catch((err) => {
                     console.warn("Impossible de lancer l'audio (autoplay ?) :", err)
                     finalizePlayback()
@@ -211,21 +213,16 @@ document.addEventListener('DOMContentLoaded', (e) => {
             })
         } catch (e) {
             console.error('Erreur TTS:', e)
-            // On ne bloque pas la boucle si le TTS plante
             return
         }
     }
 
-    // Appelle le TTS en mode chunké : plusieurs petits appels séquentiels
     const speakTextForSpeaker = async (speaker, fullText) => {
         const chunks = splitIntoChunks(fullText, 220)
         console.log(`TTS ${speaker} chunks:`, chunks)
 
         for (const chunk of chunks) {
-            if (!isRunning) {
-                // Si le podcast est arrêté entre deux chunks, on sort proprement
-                break
-            }
+            if (!isRunning) break
             await playTTSChunkForSpeaker(speaker, chunk)
         }
     }
@@ -240,17 +237,16 @@ document.addEventListener('DOMContentLoaded', (e) => {
         msg_ia.style.maxWidth = '85%'
 
         if (speaker === 'Hôte') {
-            msg_ia.style.backgroundColor = '#e0f2fe' // Bleu clair
+            msg_ia.style.backgroundColor = '#e0f2fe'
             msg_ia.style.borderLeft = '4px solid #0284c7'
             msg_ia.style.marginLeft = '0'
             msg_ia.innerHTML = `<strong>🎙️ Hôte :</strong> ${text}`
         } else if (speaker === 'Invité') {
-            msg_ia.style.backgroundColor = '#f0fdf4' // Vert clair
+            msg_ia.style.backgroundColor = '#f0fdf4'
             msg_ia.style.borderLeft = '4px solid #16a34a'
             msg_ia.style.marginLeft = 'auto'
             msg_ia.innerHTML = `<strong>🗣️ Invité :</strong> ${text}`
         } else {
-            // Pour les messages système / erreurs
             msg_ia.style.backgroundColor = '#fee2e2'
             msg_ia.style.borderLeft = '4px solid #b91c1c'
             msg_ia.style.marginLeft = '0'
@@ -266,15 +262,26 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const conversationLoop = async () => {
         if (!isRunning) return
 
-        // turnCount = nb de messages (y compris le system) déjà envoyés au modèle
-        const turnCount = conversationHistory.length
-        // On alterne Hôte / Invité :
-        // Après le system (index 0), premier tour => turnCount = 1 -> Hôte
-        // puis Invité, etc.
         const currentSpeaker = isHostTurn ? 'Hôte' : 'Invité'
 
         try {
-            const messagesForApi = getMessagesForApi()
+            const coreMessages = getMessagesForApi()
+            // 💡 On ajoute un message "user" qui dit clairement qui doit parler et comment
+            const messagesForApi = [
+                ...coreMessages,
+                {
+                    role: 'user',
+                    content: `Tu joues un dialogue entre deux personnes, mais pour ce tour-ci tu dois écrire UNIQUEMENT la prochaine réplique de ${currentSpeaker}.
+
+- Parle en français, registre soutenu.
+- Une seule réplique courte : 20 à 40 mots maximum.
+- Ne joue que le rôle de ${currentSpeaker}, ne réponds pas pour l'autre.
+- Ne décris pas la scène, ne mets pas de didascalies.
+- Ne répète pas mot pour mot les répliques précédentes.
+- Ne traduis pas la réplique précédente, produis une nouvelle phrase qui fait avancer la conversation.`,
+                },
+            ]
+
             const reply = await callDeepSeek(messagesForApi)
 
             if (!reply) {
@@ -283,22 +290,18 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 return
             }
 
-            // 1. Affichage texte
             appendMessageToUI(currentSpeaker, reply)
 
-            // 2. Lecture audio via TTS (chunkée)
             await speakTextForSpeaker(currentSpeaker, reply)
 
-            // 3. Mise à jour de l’historique pour DeepSeek
+            // On enregistre la réplique comme réponse de l’assistant
             conversationHistory.push({
                 role: 'assistant',
                 content: reply,
             })
 
-            // 🔁 Toggle du speaker
             isHostTurn = !isHostTurn
 
-            // 4. On relance la boucle si toujours en cours
             if (isRunning) {
                 conversationLoop()
             }
@@ -324,10 +327,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
         e.preventDefault()
         const text = promptInput.value.trim()
 
-        // Si déjà en cours, clic = on arrête
         if (isRunning) {
             stopPodcast()
-            isHostTurn = true // 🔁 Reset pour la prochaine fois
+            isHostTurn = true
             return
         }
 
@@ -338,12 +340,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
             return
         }
 
-        // 🎚️ NEW: on lit les 3 champs utilisateur avec fallback sur les valeurs par défaut
         const situation = (situationInput?.value || DEFAULT_SITUATION).trim() || DEFAULT_SITUATION
         const hostDesc = (hostDescInput?.value || DEFAULT_HOST_DESC).trim() || DEFAULT_HOST_DESC
         const guestDesc = (guestDescInput?.value || DEFAULT_GUEST_DESC).trim() || DEFAULT_GUEST_DESC
 
-        // 🚨 Ici on démarre : on reset le speaker AVANT de lancer
         isHostTurn = true
 
         isRunning = true
@@ -353,28 +353,20 @@ document.addEventListener('DOMContentLoaded', (e) => {
         responseOutput.innerHTML = ''
         responseOutput.style.display = 'block'
 
-        // 🎚️ NEW: prompt dynamique avec situation + descriptions
         const systemPrompt = `
-            Tu simules ${situation} entre deux personnes sur le thème : "${text}".
+Tu génères un dialogue entre deux personnes, sur le thème : "${text}".
+La situation est : ${situation}.
 
-            Rôles :
-            - Interlocuteur A = Hôte : ${hostDesc}.
-            - Interlocuteur B = Invité : ${guestDesc}.
+Rôles :
+- Interlocuteur A = Hôte : ${hostDesc}.
+- Interlocuteur B = Invité : ${guestDesc}.
 
-            STYLE OBLIGATOIRE :
-            - Réponds TOUJOURS en français.
-            - Registre soutenu : pas d'argot, pas de verlan, vocabulaire clair et précis.
-            - Dialogue naturel : chaque réplique doit rebondir sur la précédente.
-            - Réponse très courte : 20 à 40 mots maximum, idéalement ~30 mots.
-            - Maximum 120 caractères environ.
-            - Ne PAS commencer par "Hôte:" ou "Invité:", uniquement le texte parlé.
-            - Ne jamais conclure la discussion, toujours laisser une ouverture.
-
-            Exemples de longueur attendue :
-            - "Pourriez-vous préciser en quoi cette approche d'IA transforme concrètement nos pratiques quotidiennes ?"
-            - "Elle structure l'apprentissage et évite de se disperser dans des détails techniques secondaires."
-
-            Commence par une courte phrase de l'Hôte qui introduit le sujet.
+Règles générales :
+- Langue : Par défaut le français, sauf indication contraire.
+- Registre soutenu, vocabulaire clair et précis.
+- Dialogue naturel, chaque réplique rebondit sur la précédente.
+- Chaque réplique est courte (20 à 40 mots), sans conclure la discussion.
+- Tu ne dois jamais produire plusieurs répliques dans la même réponse : une seule réplique par tour.
         `
 
         conversationHistory = [{ role: 'system', content: systemPrompt }]
@@ -395,11 +387,17 @@ document.addEventListener('DOMContentLoaded', (e) => {
         })
     }
 
-    // Entrée pour lancer (Shift+Entrée autorise un saut de ligne)
     promptInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault()
             sendBtn.click()
         }
     })
+
+    // Service worker registration for basic asset caching
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch((err) => {
+            console.warn('Service worker registration failed:', err)
+        })
+    }
 })
