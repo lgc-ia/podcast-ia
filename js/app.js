@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', (e) => {
-    e.preventDefault()
+    e.preventDefault() /* test */
 
     const promptInput = document.getElementById('promptInput')
     const sendBtn = document.getElementById('sendBtn')
