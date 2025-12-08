@@ -337,3 +337,31 @@
                 max-width: 820px;
             }
         }
+
+        /* --- Scrollbar Styling --- */
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-blue) rgba(51, 65, 85, 0.6);
+        }
+
+        /* Chromium / WebKit */
+        *::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: rgba(51, 65, 85, 0.6);
+            border-radius: 10px;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 10px;
+            border: 2px solid rgba(15, 23, 42, 0.8);
+        }
+
+        *::-webkit-scrollbar-thumb:hover {
+            background: var(--hover-blue);
+        }
