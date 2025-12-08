@@ -16,12 +16,32 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const hostDescInput = document.getElementById('hostDescInput')
     const guestDescInput = document.getElementById('guestDescInput')
 
+    const setupDefaultFieldBehavior = (input, defaultValue) => {
+        if (!input) return
+        input.addEventListener('focus', () => {
+            if (input.value.trim() === defaultValue.trim()) {
+                input.value = ''
+            } else {
+                input.select()
+            }
+        })
+        input.addEventListener('blur', () => {
+            if (!input.value.trim()) {
+                input.value = defaultValue
+            }
+        })
+    }
+
     // 🎚️ valeurs par défaut si l’utilisateur ne remplit rien
     const DEFAULT_SITUATION = 'podcast pédagogique'
     const DEFAULT_HOST_DESC =
         'un enseignant homme enthousiaste et bienveillant, ton calme, courtois, registre soutenu, qui pose des questions et relance le débat'
     const DEFAULT_GUEST_DESC =
         'une enseignante femme enthousiaste et bienveillante, experte ou passionnée, qui répond de manière précise et nuancée, registre soutenu'
+
+    setupDefaultFieldBehavior(situationInput, DEFAULT_SITUATION)
+    setupDefaultFieldBehavior(hostDescInput, DEFAULT_HOST_DESC)
+    setupDefaultFieldBehavior(guestDescInput, DEFAULT_GUEST_DESC)
 
     if (footerYear) {
         footerYear.textContent = new Date().getFullYear()
