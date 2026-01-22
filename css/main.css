@@ -19,18 +19,25 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             padding: 20px;
+        }
+
+        .page-grid {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         /* --- 2. CONTENEUR PRINCIPAL --- */
         .app-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 640px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -71,8 +78,8 @@
         .podcast-settings {
             width: 100%;
             max-width: 720px;
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 14px;
             margin: 14px auto 6px;
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(30, 41, 59, 0.5));
@@ -120,12 +127,6 @@
         .podcast-settings input:focus {
             border-color: var(--primary-blue);
             box-shadow: var(--glow);
-        }
-
-        @media (min-width: 720px) {
-            .podcast-settings {
-                grid-template-columns: repeat(3, 1fr);
-            }
         }
 
         /* --- 4. ZONE DE SAISIE (Textarea) --- */
@@ -208,6 +209,11 @@
             font-size: 0.95rem;
             line-height: 1.5;
             color: #000;
+            overflow-y: auto;
+            width: 300px;
+            height: 200px;
+            overflow: auto;
+            width: 100%;
         }
 
         /* Animation simple */
@@ -235,4 +241,127 @@
             color: var(--text-muted);
             font-size: 0.85rem;
             opacity: 0.8;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 14px;
+            }
+
+            .page-grid {
+                gap: 16px;
+            }
+
+            header {
+                padding-top: 1.2rem;
+            }
+
+            .robot-illustration {
+                width: 14rem;
+                max-width: 70%;
+                margin-bottom: 8px;
+            }
+
+            .podcast-settings {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .podcast-settings label {
+                padding: 10px 12px;
+                gap: 6px;
+            }
+
+            textarea {
+                height: 130px;
+                padding: 14px;
+            }
+
+            .actions {
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .send-btn {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 600px) and (max-width: 959px) {
+            body {
+                padding: 20px;
+            }
+
+            .page-grid {
+                gap: 20px;
+                max-width: 900px;
+            }
+
+            .actions {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 16px;
+            }
+
+            .send-btn {
+                width: 48%;
+                min-width: 180px;
+            }
+        }
+
+        @media (min-width: 960px) {
+            .page-grid {
+                display: grid;
+                grid-template-columns: minmax(280px, 340px) minmax(520px, 1fr);
+                gap: 28px;
+                align-items: start;
+            }
+
+            header {
+                grid-column: 2;
+                text-align: left;
+            }
+
+            .podcast-settings {
+                grid-column: 1;
+                grid-row: 1 / span 2;
+                position: sticky;
+                top: 24px;
+                max-width: none;
+                margin: 0;
+            }
+
+            .app-container {
+                grid-column: 2;
+                max-width: 820px;
+            }
+        }
+
+        /* --- Scrollbar Styling --- */
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-blue) rgba(51, 65, 85, 0.6);
+        }
+
+        /* Chromium / WebKit */
+        *::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: rgba(51, 65, 85, 0.6);
+            border-radius: 10px;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 10px;
+            border: 2px solid rgba(15, 23, 42, 0.8);
+        }
+
+        *::-webkit-scrollbar-thumb:hover {
+            background: var(--hover-blue);
         }
